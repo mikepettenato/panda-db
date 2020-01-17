@@ -1,6 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.1.1'
     id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '0.10.1'
 }
 
 group 'org.panda'
@@ -32,6 +33,18 @@ dependencies {
 jar {
     // Include all of the jars from the bundled configuration in our jar
     from configurations.provided.asFileTree.files.collect { zipTree(it) }
+}
+
+pluginBundle {
+    website = 'https://github.com/mikepettenato/panda-db'
+    vcsUrl = 'https://github.com/mikepettenato/panda-db'
+    tags = [
+            'dbdeploy',
+            'database change management',
+            'sql scripts',
+            'sql management',
+            'db change management'
+    ]
 }
 
 

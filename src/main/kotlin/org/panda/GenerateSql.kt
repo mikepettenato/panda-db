@@ -1,10 +1,9 @@
-package org.panda.gdbdeploy
+package org.panda
 
 import com.dbdeploy.DbDeploy
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
-import org.gradle.internal.impldep.org.codehaus.plexus.util.FileUtils
 import java.io.File
 import java.sql.SQLException
 import java.sql.Statement
@@ -40,8 +39,8 @@ open class GenerateSql: DefaultTask() {
     var createChangelog = false
 
     private fun createChangelogTable() {
-        val sql = GdbdeployPlugin::class.java.getResource("/create_changelog_table.sql").readText()
-        val driver = GdbdeployPlugin::class.java.classLoader.loadClass(this.driver).newInstance() as java.sql.Driver
+        val sql = PandaDbPlugin::class.java.getResource("/create_changelog_table.sql").readText()
+        val driver = PandaDbPlugin::class.java.classLoader.loadClass(this.driver).newInstance() as java.sql.Driver
         val props = Properties()
         props.put("user", user)
         props.put("password", password)

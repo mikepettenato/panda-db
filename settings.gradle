@@ -1,3 +1,3 @@
-rootProject.name = 'gdbdeploy'
+rootProject.name = 'panda-db'
 include 'test'
 

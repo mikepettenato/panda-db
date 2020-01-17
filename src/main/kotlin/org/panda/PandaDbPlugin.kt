@@ -1,4 +1,4 @@
-package org.panda.gdbdeploy
+package org.panda
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -6,9 +6,9 @@ import java.sql.SQLException
 import java.sql.Statement
 import java.util.*
 
-open class GdbdeployPlugin: Plugin<Project> {
+open class PandaDbPlugin: Plugin<Project> {
     override fun apply(project: Project) {
-        val config = project.extensions.create("config", GdbdeployPluginExtension::class.java)
+        val config = project.extensions.create("config", PandDbPluginExtension::class.java)
 
         project.tasks.create("testIt", GenerateSql::class.java)
 
@@ -18,8 +18,8 @@ open class GdbdeployPlugin: Plugin<Project> {
             val initChangelog = task("init-changelog")
             initChangelog
                     .doLast({
-                        val sql = GdbdeployPlugin::class.java.getResource("/create_changelog_table.sql").readText()
-                        val driver = GdbdeployPlugin::class.java.classLoader.loadClass(config.driver).newInstance() as java.sql.Driver
+                        val sql = PandaDbPlugin::class.java.getResource("/create_changelog_table.sql").readText()
+                        val driver = PandaDbPlugin::class.java.classLoader.loadClass(config.driver).newInstance() as java.sql.Driver
                         val props = Properties()
                         props.put("user", "test")
                         props.put("password", "test")
