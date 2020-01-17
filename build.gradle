@@ -1,0 +1,37 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.1.1'
+    id 'java-gradle-plugin'
+}
+
+group 'org.panda'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+configurations {
+    provided
+    // Make compile extend from our provided configuration so that things added to bundled end up on the compile classpath
+    compile.extendsFrom(provided)
+}
+
+dependencies {
+    compileOnly gradleApi()
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.1.1'
+    //implementation group: 'com.dbdeploy', name: 'dbdeploy-ant', version: '3.0M3'
+    provided group: 'com.dbdeploy', name: 'dbdeploy-ant', version: '3.0M3'
+    testCompileOnly gradleTestKit()
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+}
+
+jar {
+    // Include all of the jars from the bundled configuration in our jar
+    from configurations.provided.asFileTree.files.collect { zipTree(it) }
+}
+
+
