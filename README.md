@@ -25,7 +25,7 @@ change management philosophy where all db changes are incremental and appended.
 ## Create a 'CreatePatch' Task
 the 'CreatePatch' task does not connect to your database.  It is a convenience task for creating properly 
 constructed patch file names.  Below is the format of the patch file:
-    * [epoch in ms]-[two letter random string]-[desc].sql
+  * [epoch in ms]-[two letter random string]-[desc].sql
     
 The intention of the task to create chronologically ordered sql files.  This ordering is leveraged by the 
 'GenerateSql' task.
