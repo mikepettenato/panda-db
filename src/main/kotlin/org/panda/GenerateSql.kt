@@ -64,6 +64,10 @@ open class GenerateSql: DefaultTask() {
 
     }
 
+    open internal fun createDbDeploy(): DbDeploy {
+        return DbDeploy()
+    }
+
     @TaskAction
     fun generateSql() {
         val undo = File(undoOutputFile)
@@ -73,7 +77,7 @@ open class GenerateSql: DefaultTask() {
             println("creating changelog")
             createChangelogTable()
         }
-        val dbDeploy = DbDeploy()
+        val dbDeploy = createDbDeploy()
         dbDeploy.driver = driver
         dbDeploy.url = url
         dbDeploy.userid = user

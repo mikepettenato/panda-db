@@ -2,9 +2,8 @@
 A gradle plugin built on top of dbdeploy.  
 
 # How to Configure
-Add a to your buildscript dependencies the database driver that you intend to use.  This is needed 
+Add the database driver that you want to use to your buildscript dependencies.  This is needed 
 so the plugin can connect to your database. Below is an example of how you can configure the plugin
- 
 
     buildscript {
         dependencies {
@@ -16,14 +15,20 @@ so the plugin can connect to your database. Below is an example of how you can c
     }
 
 Apply the PandaDbPlugin plugin.  Below is an example of how to do this in your build script:
-    apply plugin: org.panda.PandaDbPlugin
-
+    * apply plugin: org.panda.PandaDbPlugin
 
 # How to Use
 Below is a list of the tasks that you can use.  These tasks are intended to help in supporting a database 
 change management philosophy where all db changes are incremental and appended.
 
 ## Create a 'create-patch' Task
+the 'create-patch' task does not connect to your database.  It is only a convenience task for creating properly 
+constructed patch file names.  Below is the format of the patch file:
+    * [epoch]-[uuid]-[desc].sql
+    
+The intention of the task to create a chronologically applicable sql file.  This ordering is leveraged by the 
+'generate-sql' task.
+
 You can configure two properties when using the create-patch task:
    * desc
    * dir
