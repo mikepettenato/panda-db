@@ -51,7 +51,7 @@ Below is an example of how you can configure this task in your build.gradle file
 <b>Note</b>: You can add the dir property to the task shown above if you want to change the patch directory from it's 
 default value of './patch'
 
-You can run the below task, as follows: 
+You can run the above task, as follows: 
     ./gradlew createPatch -Ddesc="create user table"
 
 ## Create a 'GenerateSql' task
@@ -74,3 +74,15 @@ Below is a list of the properties that can be used to configure the GenerateSql 
 Most of the above mentioned properties are self explanatory.  The 'createChangelog' property is one that if set
 to true will create a changelog table, if one does not exist, as the first patch applied to the database.
        
+Below is an example of how you can configure this task in your build.gradle file:
+
+    task generateSql(type: org.panda.GenerateSql) {
+        url = "jdbc:postgresql://127.0.0.1/mysdb"
+        user = "myuser"
+        password = "mypassword"
+        patchDir = "scripts/db/patch"
+        createChangelog = true
+    }
+
+You can run the above task, as follows: 
+    ./gradlew generateSql
