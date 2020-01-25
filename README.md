@@ -51,7 +51,7 @@ Below is an example of how you can configure this task in your build.gradle file
 <b>Note</b>: You can add the dir property to the task shown above if you want to change the patch directory from it's 
 default value of './patch'
 
-You can run the above task, as follows: 
+You can run the above task, as follows: <br>
     ./gradlew createPatch -Ddesc="create user table"
 
 ## Create a 'GenerateSql' task
@@ -84,5 +84,5 @@ Below is an example of how you can configure this task in your build.gradle file
         createChangelog = true
     }
 
-You can run the above task, as follows: 
+You can run the above task, as follows: <br>
     ./gradlew generateSql
