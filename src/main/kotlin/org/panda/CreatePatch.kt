@@ -50,7 +50,7 @@ open class CreatePatch: DefaultTask() {
 
     open internal fun writePatchFile(fileName: String): Unit {
 
-        val file = File(path, fileName)
+        val file = File(dir, fileName)
 
         file.writeText("""--- Put the ddl or dml directly below these comments
 --- Put the undo ddl/dml below the @UNDO comment

@@ -3,6 +3,7 @@ package org.panda
 import com.dbdeploy.DbDeploy
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 import java.sql.SQLException
@@ -48,6 +49,7 @@ open class GenerateSql: DefaultTask() {
      * the default one packaged is for postgres
      */
     @Input
+    @Optional
     var changeLogScript: String? = null
 
     open internal fun getChangelogSql(): String {
@@ -60,13 +62,13 @@ open class GenerateSql: DefaultTask() {
 
         var sql = PandaDbPlugin::class.java.getResource("/create_changelog_table.sql").readText()
 
-        val changeLogFile = File(changeLogScript)
-
         if (changeLogScript != null) {
-            if (!changeLogFile.exists() || !changeLogFile.isFile()) {
-                throw PandaDbException("changeLogFile set does not exist or is not a file")
-            }
 
+            val changeLogFile = File(changeLogScript)
+
+            if (!changeLogFile.exists() || !changeLogFile.isFile()) {
+                throw PandaDbException("changeLogFile does not exist or is not a file")
+            }
             sql = changeLogFile.readText()
         }
 
