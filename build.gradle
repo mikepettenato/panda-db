@@ -23,7 +23,6 @@ configurations {
 dependencies {
     compileOnly gradleApi()
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.1.1'
-    //implementation group: 'com.dbdeploy', name: 'dbdeploy-ant', version: '3.0M3'
     provided group: 'com.dbdeploy', name: 'dbdeploy-ant', version: '3.0M3'
     testCompileOnly gradleTestKit()
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'

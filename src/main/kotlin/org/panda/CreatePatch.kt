@@ -61,7 +61,7 @@ open class CreatePatch: DefaultTask() {
         )
     }
 
-    private fun ran(from: Int, to: Int): Int {
+    private fun rand(from: Int, to: Int): Int {
         return random.nextInt(to - from) + from
     }
 
@@ -69,7 +69,9 @@ open class CreatePatch: DefaultTask() {
         val desc = desc!!.replace(" ", "-")
         val timeMillis = Date().time
         //val uuid = UUID.randomUUID()
-        val uuid = charList[ran(0 , charList.size)] + charList[ran(0 , charList.size)]
+        val uuid = charList[rand(0 , charList.size)] +
+                charList[rand(0 , charList.size)] +
+                charList[rand(0 , charList.size)]
 
         //val rstr = uuid.toString().replace("-", "")
         return "${timeMillis}-${uuid}-${desc}.sql"

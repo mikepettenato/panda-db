@@ -32,14 +32,51 @@ open class GenerateSql: DefaultTask() {
     @Input
     var undoOutputFile = "undo.sql"
 
-    @Input
-    var dbms = "pgsql"
+    private val defaultDbms = "pgsql"
 
+    @Input
+    var dbms = defaultDbms
+
+    /**
+     * should the changelog table be created
+     */
     @Input
     var createChangelog = false
 
+    /**
+     * set the location of the sql file for the changelog file
+     * the default one packaged is for postgres
+     */
+    @Input
+    var changeLogScript: String? = null
+
+    open internal fun getChangelogSql(): String {
+
+        // We only support a default changeLogScript for postgres (pgsql)
+        // if dbms != pgsql, changeLogScript == null and createChangeLog == true then throw an exception
+        if (dbms != defaultDbms && changeLogScript == null) {
+            throw PandaDbException("changeLogScript is not set.  No changeLogScript for ${dbms} database")
+        }
+
+        var sql = PandaDbPlugin::class.java.getResource("/create_changelog_table.sql").readText()
+
+        val changeLogFile = File(changeLogScript)
+
+        if (changeLogScript != null) {
+            if (!changeLogFile.exists() || !changeLogFile.isFile()) {
+                throw PandaDbException("changeLogFile set does not exist or is not a file")
+            }
+
+            sql = changeLogFile.readText()
+        }
+
+        return sql
+    }
+
     private fun createChangelogTable() {
-        val sql = PandaDbPlugin::class.java.getResource("/create_changelog_table.sql").readText()
+
+        val sql = getChangelogSql()
+
         val driver = PandaDbPlugin::class.java.classLoader.loadClass(this.driver).newInstance() as java.sql.Driver
         val props = Properties()
         props.put("user", user)
